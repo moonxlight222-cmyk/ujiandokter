@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Latihan Ujian Pre-Klinik & Klinik</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--tx:#1b2430;--mu:#5d6b7a;--ac:#0d7a6b;--ok:#1f8a4c;--no:#c0392b;--bd:#dde3ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#12171d;--card:#1b232c;--tx:#e8edf2;--mu:#9aa8b6;--ac:#3fc1ad;--ok:#4cc27f;--no:#ef7b6e;--bd:#2d3844}}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,sans-serif}
+main{max-width:720px;margin:auto;padding:14px}
+h1{font-size:1.3rem;margin:6px 0}
+nav{display:flex;gap:8px;margin:10px 0}
+button,select{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:9px 14px}
+button.on,button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:10px 0}
+.c h3{margin:0 0 6px;color:var(--ac);font-size:1rem}ul{margin:0;padding-left:20px}
+.o{display:block;width:100%;text-align:left;margin:7px 0}
+.o.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,var(--card))}
+.o.no{border-color:var(--no);background:color-mix(in srgb,var(--no) 18%,var(--card))}
+.mu{color:var(--mu);font-size:.9rem}.hide{display:none}details{margin:8px 0}summary{cursor:pointer;font-weight:600;padding:11px 13px;background:var(--card);border:1px solid var(--bd);border-radius:10px}details p{margin:9px 4px}input{font:inherit;width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx)}b{color:var(--ac)}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:10px}.fc,.tc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;cursor:pointer;text-align:center;transition:transform .15s}.fc:active,.tc:active{transform:scale(.97)}.st{font-size:2.4rem;line-height:1.2}.tc{display:flex;gap:12px;align-items:center;text-align:left;margin:8px 0}.tc .st{font-size:1.8rem}.tip{background:color-mix(in srgb,var(--ac) 15%,var(--card));border-radius:14px;padding:11px 13px;margin:12px 0}.pg{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px;margin-top:10px}.pg h2{margin:4px 0 8px}.bar{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
+</style></head><body><main>
+<h1>Latihan Ujian Pre-Klinik & Klinik</h1>
+<p class="mu">Materi ringkas + soal MCQ gaya vignette. Kunci jawaban diacak tiap sesi.</p>
+<div>Tema: <select id="th"><option value="">Otomatis</option><option>Mint</option><option>Pink</option><option>Lavender</option><option>Peach</option><option>Langit</option><option>Gelap</option></select> <button id="fa">A−</button> <button id="fb">A+</button></div><nav><button id="tm" class="on">Materi</button><button id="tq">Soal</button></nav>
+<section id="m"></section>
+<section id="q" class="hide">
+<select id="f"></select> <button id="go" class="p">Mulai</button>
+<div id="box"></div></section>
+</main>
+<script>
+const M0=[
+["Kardiovaskular",["STEMI: nyeri dada >20 mnt, ST elevasi; aspirin + klopidogrel, reperfusi","Gagal jantung: sesak, ortopnea, edema, JVP naik","AF: RR ireguler tanpa P; antikoagulan jika CHA2DS2-VASc ≥2","Hipertensi lini 1: ACEi/ARB, CCB, tiazid"]],
+["Respirasi",["Asma: mengi episodik, SABA saat serangan, ICS pengontrol","TB: OAT 2RHZE/4RH","Pneumotoraks tension: dekompresi jarum ICS 2 MCL","CAP ringan: amoksisilin"]],
+["Gastro & hepatobilier",["Apendisitis: Mc Burney, leukositosis","Kolesistitis: Murphy +","HBsAg + >6 bulan = kronik","Diare akut: oralit + zinc","Eradikasi H. pylori: PPI + amoksisilin + klaritromisin"]],
+["Endokrin & metabolik",["DM: GDP ≥126, GD2PP ≥200, HbA1c ≥6,5%","Lini 1 DM2: metformin","KAD: Kussmaul, keton +; HHS: tanpa keton, osmolaritas tinggi","Graves: TSH rendah, fT4 tinggi, eksoftalmus","Hipoglikemia sadar: gula oral 15-20 g"]],
+["Obsgin",["Preeklamsia berat: TD ≥160/110 + proteinuria; MgSO4","Plasenta previa: tanpa nyeri; solusio: nyeri, uterus tegang","PPH tersering: atonia uteri","Ektopik: amenore, nyeri, β-hCG +, uterus kosong","BV: clue cells, pH >4,5, metronidazol"]],
+["Kepala-leher, neuro, jiwa",["OMA: MT bulging hiperemis","Glaukoma akut: nyeri, midriasis fiksasi, halo","Stroke iskemik <4,5 jam: rtPA","Meningitis: kaku kuduk, Kernig +","Depresi ≥2 minggu: SSRI; skizofrenia >1 bulan"]],
+["Hemato, uro, kulit, MSK",["IDA: mikrositik, ferritin rendah","DBD fase kritis hari 3-5, Ht naik, trombosit turun","Anafilaksis: epinefrin IM dulu","Nefrotik: proteinuria >3,5 g; GNAPS: pasca faringitis","Gout: MTP I; RA: kaku pagi >1 jam simetris"]],
+["Trauma, etika, komunikasi",["Primary survey ABCDE","Parkland: 4 ml × BB × %TBSA, separuh 8 jam pertama","Autonomi, beneficence, nonmaleficence, justice","Breaking bad news: SPIKES","Hep B lahir <24 jam"]]];
+const Q=`Kardio|Pria 55 th nyeri dada >30 menit, ST elevasi V1-V4. Terapi awal?|Aspirin + klopidogrel|Antasida|Parasetamol|Observasi|Salbutamol|STEMI anterior: DAPT dan reperfusi segera.
+Kardio|Wanita 60 th sesak, ortopnea, edema tungkai, JVP meningkat. Diagnosis?|Gagal jantung|Asma|PPOK|Sindrom nefrotik|Emboli paru|Tanda kongesti sistemik dan paru.
+Kardio|Dewasa TD 165/100 tanpa komorbid, obat lini pertama?|Amlodipin|Furosemid|Digoksin|Nitrogliserin|Atropin|CCB/ACEi/ARB/tiazid lini 1.
+Kardio|Murmur diastolik apikal dengan opening snap. Diagnosis?|Stenosis mitral|Regurgitasi mitral|Stenosis aorta|VSD|PDA|Rumbling diastolik + opening snap = MS.
+Kardio|EKG tanpa gelombang P, RR ireguler. Aritmia?|Fibrilasi atrium|Sinus takikardia|AV blok III|PSVT|Flutter ventrikel|AF: irregularly irregular.
+Kardio|AF nonvalvular CHA2DS2-VASc 3. Pencegahan stroke?|Antikoagulan oral|Aspirin saja|Statin|Nitrat|Atropin|Skor ≥2 perlu antikoagulan.
+Respirasi|Anak 5 th mengi berulang malam hari, riwayat atopi. Diagnosis?|Asma|Pneumonia|TB paru|Bronkiolitis|Epiglotitis|Mengi episodik + atopi.
+Respirasi|Serangan asma akut, obat pertama?|Salbutamol inhalasi|Salmeterol|Montelukast|Teofilin oral|Antibiotik|SABA untuk serangan.
+Respirasi|Pria 50 th batuk 3 bulan, BTA positif. Terapi?|2RHZE/4RH|Amoksisilin|Azitromisin|Steroid|Teofilin|Regimen OAT kategori 1.
+Respirasi|Basal kanan: perkusi redup, fremitus dan suara napas menurun. Temuan?|Efusi pleura|Pneumotoraks|Konsolidasi|Asma|Emfisema|Redup + fremitus turun = cairan.
+Respirasi|Pneumotoraks tension, tindakan segera?|Dekompresi jarum ICS 2 MCL|Foto toraks|CT scan|Antibiotik|Pemberian oksigen saja|Diagnosis klinis, jangan menunda.
+Respirasi|Pneumonia komunitas ringan rawat jalan, antibiotik?|Amoksisilin|Gentamisin|Metronidazol|Siprofloksasin|Vankomisin|Amoksisilin lini 1.
+GI|Nyeri epigastrium, H. pylori positif. Eradikasi?|PPI + amoksisilin + klaritromisin|Antasida saja|Parasetamol|Loperamid|Ranitidin saja|Terapi tripel standar.
+GI|Nyeri perut kanan bawah, Mc Burney +, leukositosis. Diagnosis?|Apendisitis akut|Kolesistitis|Pankreatitis|Ileus|Gastritis|Klasik apendisitis.
+GI|Nyeri kuadran kanan atas, demam, Murphy sign +. Diagnosis?|Kolesistitis akut|Apendisitis|Hepatitis A|Gastritis|GERD|Murphy + = kolesistitis.
+GI|HBsAg positif lebih dari 6 bulan menandakan?|Infeksi kronik|Imunisasi|Infeksi akut|Sembuh|Window period|Persisten >6 bulan = kronik.
+GI|Anak diare akut tanpa dehidrasi. Terapi?|Oralit + zinc|Antibiotik|Loperamid|Infus RL|Puasa|Rehidrasi dan zinc.
+GI|Kolik, distensi, muntah, bising usus metalik. Diagnosis?|Obstruksi usus|Gastritis|Apendisitis|Hepatitis|GERD|Bising metalik = obstruksi.
+Endokrin|GDP 130, GD2PP 210, HbA1c 7,5%. Diagnosis?|DM tipe 2|TGT|GDPT|Normal|DM gestasional|GDP ≥126 dan HbA1c ≥6,5%.
+Endokrin|DM2 baru terdiagnosis, obat lini pertama?|Metformin|Insulin|Glibenklamid|Akarbosa|Pioglitazon|Metformin lini 1.
+Endokrin|Pasien DM, napas Kussmaul, keton +, GD 450. Diagnosis?|KAD|HHS|Hipoglikemia|Sepsis|Asidosis laktat|Keton + dan Kussmaul.
+Endokrin|Eksoftalmus, tremor, berat turun, TSH rendah, fT4 tinggi. Diagnosis?|Penyakit Graves|Hipotiroid|Hashimoto|Struma nodosa|Kretinisme|Tirotoksikosis + eksoftalmus.
+Endokrin|Wajah bulan, striae ungu, obesitas sentral. Diagnosis?|Sindrom Cushing|Addison|Akromegali|Hipotiroid|Feokromositoma|Kelebihan kortisol.
+Endokrin|Hipoglikemia pasien masih sadar. Tindakan?|Gula oral 15-20 g|Insulin|Metformin|Observasi|Dekstrosa 40% IV|Sadar: berikan oral.
+THT/Mata|Anak demam, nyeri telinga, MT hiperemis bulging. Diagnosis?|Otitis media akut|Otitis eksterna|Serumen prop|Mastoiditis|Tuli konduktif|Bulging hiperemis = OMA.
+THT/Mata|Epistaksis anterior, tindakan awal?|Tekan cuping hidung, kepala condong depan|Tampon posterior|Ligasi arteri|Tengadah|Berbaring telentang|Posisi duduk condong ke depan.
+THT/Mata|Nyeri tenggorok, tonsil eksudat, demam, tanpa batuk. Antibiotik?|Penisilin V/amoksisilin|Kloramfenikol|Gentamisin|Siprofloksasin|Tidak perlu|Curiga GAS (Centor tinggi).
+THT/Mata|Mata merah, sekret mukopurulen, visus normal. Diagnosis?|Konjungtivitis bakteri|Glaukoma akut|Uveitis|Keratitis|Skleritis|Visus normal, sekret purulen.
+THT/Mata|Mata merah nyeri hebat, pupil midriasis fiksasi, halo. Diagnosis?|Glaukoma akut sudut tertutup|Konjungtivitis|Uveitis|Katarak|Pterigium|Kegawatan mata.
+THT/Mata|Vertigo dipicu perubahan posisi, singkat. Pemeriksaan/manuver?|Dix-Hallpike|Rinne|Weber|Romberg|Valsava|BPPV.
+Reproduksi|Amenore 8 mgg, nyeri perut, perdarahan, β-hCG +, uterus kosong. Diagnosis?|Kehamilan ektopik|Abortus komplit|Mola|Plasenta previa|Kista ovarium|Trias ektopik.
+Reproduksi|Hamil 34 mgg, TD 160/110, proteinuria +2. Diagnosis?|Preeklamsia berat|Hipertensi gestasional|Eklamsia|Hipertensi kronik|Normal|TD ≥160/110 + proteinuria.
+Reproduksi|Pencegahan kejang pada preeklamsia berat?|MgSO4|Diazepam|Fenitoin|Nifedipin|Furosemid|MgSO4 pilihan utama.
+Reproduksi|Perdarahan antepartum tanpa nyeri, darah merah segar. Diagnosis?|Plasenta previa|Solusio plasenta|Ruptur uteri|Vasa previa|Persalinan|Tanpa nyeri = previa.
+Reproduksi|Penyebab tersering perdarahan pascasalin?|Atonia uteri|Laserasi jalan lahir|Retensio plasenta|Koagulopati|Inversio uteri|Atonia ±70%.
+Reproduksi|Duh vagina amis, clue cells, pH >4,5. Terapi?|Metronidazol|Flukonazol|Seftriakson|Doksisiklin|Nistatin|Vaginosis bakterialis.
+Hemato|Anemia mikrositik hipokrom, ferritin rendah. Diagnosis?|Anemia defisiensi besi|Talasemia|Anemia penyakit kronik|Aplastik|Megaloblastik|Ferritin rendah = defisiensi besi.
+Hemato|DBD: kapan fase kritis (hari sakit)?|Hari 3-5|Hari 1-2|Hari 7-9|Hari 10|Hari 14|Saat demam turun, Ht naik.
+Hemato|Anemia makrositik disertai neuropati. Defisiensi?|Vitamin B12|Besi|Vitamin C|Vitamin K|Vitamin D|B12 menyebabkan neuropati.
+Hemato|Urtikaria, hipotensi, stridor setelah suntikan. Obat pertama?|Epinefrin IM|Antihistamin|Kortikosteroid|Aminofilin|Salbutamol|Anafilaksis: epinefrin dulu.
+Urogenital|Wanita disuria, sering BAK, nyeri suprapubik, nitrit +. Terapi?|Kotrimoksazol|Gentamisin|Seftriakson IV|Vankomisin|Metronidazol|Sistitis tanpa komplikasi.
+Urogenital|Kolik pinggang menjalar ke selangkangan, hematuria. Diagnosis?|Urolitiasis|Pielonefritis|Sistitis|BPH|Tumor ginjal|Kolik ureter.
+Urogenital|Edema, proteinuria >3,5 g/hari, hipoalbumin, hiperkolesterol. Diagnosis?|Sindrom nefrotik|Sindrom nefritik|GGK|ISK|Batu ginjal|Trias nefrotik.
+Urogenital|Pria 65 th pancaran lemah, nokturia, prostat licin kenyal. Diagnosis?|BPH|Ca prostat|Prostatitis|Striktur uretra|Batu buli|Prostat licin membesar.
+Urogenital|Hematuria, hipertensi, edema 2 minggu pasca faringitis. Diagnosis?|GNAPS|Sindrom nefrotik|ISK|Pielonefritis|Batu ginjal|Pasca infeksi streptokokus.
+Derma/MSK|Plak eritem skuama keperakan di siku dan lutut. Diagnosis?|Psoriasis|Dermatitis atopik|Tinea|Skabies|Impetigo|Skuama perak khas.
+Derma/MSK|Gatal malam hari, terowongan di sela jari. Terapi?|Permetrin 5%|Griseofulvin|Asiklovir|Mupirosin|Ketokonazol|Skabies.
+Derma/MSK|Makula hipopigmentasi dengan anestesi. Diagnosis?|Kusta|Vitiligo|Tinea versikolor|Pitiriasis alba|Albinisme|Anestesi = kusta.
+Derma/MSK|Fraktur terbuka, tindakan awal?|Debridemen, antibiotik, stabilisasi|Reposisi tertutup saja|Gips langsung|Analgesik saja|Observasi|Cegah infeksi.
+Derma/MSK|Nyeri mendadak MTP I, asam urat tinggi. Diagnosis?|Artritis gout|Osteoartritis|Artritis reumatoid|Artritis septik|Artritis reaktif|Podagra.
+Derma/MSK|Kaku sendi pagi >1 jam, simetris MCP/PIP. Diagnosis?|Artritis reumatoid|Osteoartritis|Gout|SLE|Spondilitis|Simetris, kaku pagi lama.
+Neuro/Jiwa|Hemiparesis mendadak, afasia, onset 2 jam, CT tanpa perdarahan. Terapi?|Trombolisis rtPA|Heparin|Manitol|Kraniotomi|Warfarin|Window <4,5 jam.
+Neuro/Jiwa|Nyeri kepala berdenyut unilateral, mual, fotofobia. Diagnosis?|Migrain|Tension headache|Cluster|SAH|Meningitis|Migrain khas.
+Neuro/Jiwa|Demam, kaku kuduk, Kernig +, LCS keruh dominan neutrofil. Diagnosis?|Meningitis bakterial|Ensefalitis|Tension headache|SAH|Abses otak|LCS keruh PMN.
+Neuro/Jiwa|Kejang demam anak sedang kejang aktif. Obat?|Diazepam rektal|Fenitoin|Fenobarbital|Parasetamol|Observasi|Hentikan kejang dulu.
+Neuro/Jiwa|Sedih dan anhedonia >2 minggu. Terapi lini pertama?|SSRI|Haloperidol|Litium|Diazepam|Klorpromazin|Episode depresi.
+Neuro/Jiwa|Halusinasi auditorik dan waham >1 bulan. Diagnosis?|Skizofrenia|Depresi|Mania|Gangguan panik|Gangguan cemas|Gejala psikotik >1 bulan.
+Trauma|Urutan primary survey ATLS?|A-B-C-D-E|C-A-B-D-E|D-A-B-C-E|E-A-B-C-D|Secondary survey dulu|Airway dahulu dengan proteksi servikal.
+Trauma|Luka bakar 30% TBSA, BB 60 kg. Cairan Parkland 24 jam?|7.200 mL|2.400 mL|3.600 mL|1.800 mL|9.600 mL|4×60×30; separuh 8 jam pertama.
+Infeksi|Demam 5 hari, lidah kotor, bradikardia relatif. Terapi?|Kloramfenikol/seftriakson|Parasetamol saja|Isoniazid|Metronidazol|Oseltamivir|Demam tifoid.
+Tumbuh kembang|Anak mulai berjalan sendiri pada usia?|12-15 bulan|3 bulan|6 bulan|24 bulan|36 bulan|Milestone motorik kasar.
+Etika|Dokter membuka rahasia pasien tanpa izin melanggar?|Kerahasiaan|Beneficence|Justice|Autonomi|Nonmaleficence|Kewajiban menjaga rahasia.
+Etika|Pasien kompeten menolak tindakan dan dokter menghormatinya. Prinsip?|Autonomi|Beneficence|Justice|Nonmaleficence|Paternalisme|Hak menentukan diri.
+Komunikasi|Protokol menyampaikan berita buruk?|SPIKES|SOAP|SBAR|APGAR|ABCDE|Setting, Perception, Invitation, Knowledge, Emotion, Summary.
+Prevensi|Imunisasi hepatitis B pertama bayi baru lahir?|<24 jam|1 bulan|2 bulan|6 bulan|1 tahun|Dosis lahir <24 jam.`.split("\n").map(l=>{const a=l.split("|");return{s:a[0],q:a[1],o:a.slice(2,7),e:a[7]}});
+const $=id=>document.getElementById(id);
+const M=[
+["🧬 Landasan ilmiah: dasar-dasar","Guyton & Hall Textbook of Medical Physiology; Robbins Basic Pathology; Janeway Immunobiology",[
+["Homeostasis","Tubuh itu seperti AC yang menjaga suhu ruangan. Kalau ada yang menyimpang, tubuh mengoreksinya. Yang paling sering adalah umpan balik negatif: gula darah naik → insulin keluar → gula turun lagi."],
+["Transport lewat membran","Difusi: zat pindah dari konsentrasi tinggi ke rendah, tanpa energi. Osmosis: air bergerak ke sisi yang larutannya lebih pekat. Transport aktif butuh ATP, contohnya pompa Na+/K+ ATPase yang mengeluarkan 3 Na dan memasukkan 2 K."],
+["Energi sel","Glikolisis terjadi di sitoplasma (glukosa → piruvat, bersih 2 ATP). Siklus Krebs dan fosforilasi oksidatif terjadi di mitokondria dan menghasilkan sekitar 30-32 ATP per glukosa. Tanpa oksigen, piruvat jadi laktat."],
+["Peradangan","Lima tanda kardinal: rubor (merah), kalor (panas), dolor (nyeri), tumor (bengkak), functio laesa (gangguan fungsi). Neutrofil datang paling awal, makrofag menyusul untuk membereskan sisa."],
+["Imunitas","Innate = cepat dan tidak spesifik. Adaptif = lambat, spesifik, punya memori (sel T dan B). IgM muncul pertama, IgG paling banyak dan bisa menembus plasenta, IgA ada di mukosa dan ASI, IgE untuk alergi dan cacing."],
+["Hipersensitivitas I-IV","Singkatan ACID: Anafilaksis (tipe I, IgE), Cytotoxic (II, antibodi menyerang sel), Immune complex (III), Delayed (IV, sel T, contoh tes Mantoux)."],
+["Genetik","Autosomal dominan: muncul di tiap generasi. Autosomal resesif: bisa melompati generasi (ada carrier). X-linked resesif: lebih sering pada laki-laki. Sindrom Down = trisomi 21."],
+["Neoplasma","Jinak: berkapsul, sel mirip normal, tumbuh lambat, tidak metastasis. Ganas: invasif, anaplasia, bisa metastasis."]]],
+["❤️ Kardiovaskular","Guyton & Hall; Harrison; PERKI; Perhimpunan Hipertensi Indonesia",[
+["Bunyi jantung","S1 = katup AV (mitral dan trikuspid) menutup, awal sistol. S2 = katup aorta dan pulmonal menutup, awal diastol."],
+["Rumus penting","Curah jantung = laju jantung × volume sekuncup (normal sekitar 5 L/menit). Tekanan darah = curah jantung × resistensi perifer."],
+["Sindrom koroner akut","Angina stabil: nyeri saat aktivitas, hilang dengan istirahat. NSTEMI: nyeri saat istirahat, troponin naik, tanpa ST elevasi. STEMI: ST elevasi, butuh reperfusi segera. Troponin adalah penanda utama kerusakan otot jantung."],
+["Gagal jantung","Kiri → paru basah: sesak, ortopnea, PND, ronki. Kanan → badan bengkak: JVP naik, edema tungkai, hepar membesar."],
+["Hipertensi","Diagnosis bila TD ≥140/90 mmHg pada pengukuran berulang. Krisis hipertensi bila ≥180/120. Obat lini pertama: ACEi/ARB, CCB, tiazid."],
+["Baca EKG pelan-pelan","Gelombang P = depolarisasi atrium. QRS = depolarisasi ventrikel. T = repolarisasi ventrikel. AF: tidak ada P dan irama tidak teratur."]]],
+["🫁 Respirasi","Guyton & Hall; GINA; GOLD; Pedoman Nasional TB Kemenkes",[
+["Mekanik napas","Inspirasi itu aktif (diafragma turun). Ekspirasi tenang itu pasif. Surfaktan menurunkan tegangan permukaan alveolus, bayi prematur kurang surfaktan sehingga bisa mengalami RDS."],
+["Kurva disosiasi Hb","Bergeser ke kanan (O2 mudah dilepas ke jaringan) saat CO2 tinggi, asam, suhu tinggi, 2,3-DPG tinggi. Mnemonik: CADET face Right."],
+["Obstruktif vs restriktif","Obstruktif (asma, PPOK): sulit mengeluarkan napas, FEV1/FVC turun. Restriktif (fibrosis): paru sulit mengembang, FVC turun, rasio normal atau naik."],
+["Pemeriksaan fisik paru","Redup + fremitus turun = cairan (efusi). Redup + fremitus naik = konsolidasi (pneumonia). Hipersonor + suara napas hilang = udara (pneumotoraks)."],
+["Asma vs PPOK","Asma: usia muda, atopi, hilang timbul, reversibel. PPOK: perokok, usia tua, progresif, ireversibel."],
+["TB paru","Batuk >2 minggu, keringat malam, berat badan turun. Diagnosis dengan TCM atau BTA. Terapi 2 bulan RHZE lalu 4 bulan RH."]]],
+["🍽️ Gastrointestinal & hepatobilier","Guyton & Hall; Sabiston; PPK IDI; Panduan Praktik Klinis FKTP",[
+["Siapa mengerjakan apa","Mulut: amilase. Lambung: HCl dan pepsin. Pankreas: enzim lemak, protein, karbohidrat. Empedu: mengemulsi lemak. Usus halus: tempat penyerapan utama."],
+["Peta nyeri perut","Epigastrium: lambung/pankreas. Kuadran kanan atas: hepar/empedu. Kanan bawah: apendiks. Apendisitis klasik mulai nyeri di sekitar pusar, lalu pindah ke kanan bawah."],
+["Hepatitis virus","A dan E: fekal-oral (E berbahaya pada ibu hamil). B dan C: lewat darah, B juga seksual dan ibu ke bayi. B dan C bisa kronik."],
+["Ikterus","Prehepatik: hemolisis, bilirubin indirek naik. Pascahepatik (sumbatan): urin gelap, tinja pucat seperti dempul, gatal."],
+["Diare","Kuncinya rehidrasi. Dehidrasi berat: letargi, tidak bisa minum, turgor kembali sangat lambat. Anak diberi oralit dan zinc."],
+["Peritonitis","Tanda: nyeri tekan lepas dan defans muskular (perut kaku seperti papan). Ini kegawatan bedah."]]],
+["🍬 Metabolik & endokrin","Guyton & Hall; PERKENI; Harrison",[
+["Insulin vs glukagon","Insulin menurunkan gula darah (memasukkan glukosa ke sel). Glukagon menaikkannya. DM tipe 1 = kurang insulin (autoimun, muda). DM tipe 2 = sel resisten terhadap insulin (obesitas)."],
+["Kriteria DM","GDP ≥126, GD2PP ≥200, GDS ≥200 dengan gejala klasik, atau HbA1c ≥6,5%. Prediabetes: GDPT 100-125, TGT 140-199."],
+["Komplikasi DM","Akut: hipoglikemia, KAD (napas Kussmaul, keton +), HHS (gula sangat tinggi tanpa keton). Kronik: mikro (retinopati, nefropati, neuropati) dan makro (jantung, stroke, PAD)."],
+["Tiroid","Hipertiroid: tidak tahan panas, berdebar, berat turun, tremor, TSH rendah. Hipotiroid: tidak tahan dingin, lemas, berat naik, konstipasi, bradikardia."],
+["Kortisol","Cushing (kelebihan): wajah bulan, striae ungu, obesitas sentral. Addison (kekurangan): hipotensi, hiperpigmentasi, Na turun, K naik."]]],
+["👂 Kepala & leher (THT, mata)","Buku Ajar THT-KL FKUI; Vaughan & Asbury Ophthalmology; Panduan Praktik Klinis FKTP",[
+["Telinga","Luar, tengah (tiga tulang: malleus, incus, stapes), dalam (koklea dan vestibular). Tuli konduktif: Rinne negatif, Weber ke telinga sakit. Tuli sensorineural: Rinne positif, Weber ke telinga sehat."],
+["Mata merah","Konjungtivitis: visus normal, tidak nyeri hebat. Glaukoma akut: nyeri hebat, visus turun, halo, pupil lebar. Uveitis: fotofobia, pupil kecil."],
+["Faringitis","Skor Centor: demam, eksudat tonsil, KGB leher anterior nyeri, tidak batuk. Skor tinggi → curiga streptokokus, beri antibiotik."],
+["Epistaksis","Sebagian besar anterior (area Kiesselbach). Duduk condong ke depan lalu tekan cuping hidung 10-15 menit. Jangan tengadah."],
+["Rhinitis alergi","Bersin berulang, hidung gatal, sekret encer, konka pucat."]]],
+["🤰 Reproduksi","Williams Obstetrics; Buku Acuan Nasional Pelayanan Kesehatan Maternal; Kemenkes",[
+["Siklus haid","Fase folikular: FSH dan estrogen naik. Ovulasi sekitar hari ke-14 setelah lonjakan LH. Fase luteal: progesteron dominan."],
+["Hitung HPL","Rumus Naegele: HPHT + 7 hari, dikurangi 3 bulan (atau ditambah 9 bulan)."],
+["Kehamilan ektopik","Trias: amenore, nyeri perut, perdarahan. β-hCG positif, USG tidak menemukan kantung di uterus."],
+["Preeklamsia","TD ≥140/90 setelah usia kehamilan 20 minggu dengan proteinuria atau disfungsi organ. Berat: ≥160/110. Pencegahan kejang: MgSO4."],
+["Perdarahan antepartum","Plasenta previa: tanpa nyeri, darah merah segar. Solusio plasenta: nyeri, perut keras seperti papan."],
+["Perdarahan pascasalin: 4T","Tone (atonia uteri, paling sering), Trauma, Tissue (sisa plasenta), Thrombin (gangguan pembekuan)."]]],
+["🩸 Hematologi & imunologi","Hoffbrand Essential Haematology; WHO/Kemenkes Tata Laksana DBD",[
+["Klasifikasi anemia","Lihat MCV. Mikrositik: defisiensi besi, talasemia. Normositik: penyakit kronik, perdarahan akut. Makrositik: defisiensi B12 atau folat."],
+["Hemostasis","Gangguan trombosit/pembuluh darah: petekie, mimisan. Gangguan faktor pembekuan: hematom dalam, hemartrosis."],
+["DBD","Tiga fase: demam, kritis, pemulihan. Fase kritis justru saat demam turun (hari 3-5): hematokrit naik, trombosit turun, risiko syok. Waspada nyeri perut, muntah terus, perdarahan."],
+["Golongan darah","O = donor universal sel darah merah, AB = resipien universal. Golongan A punya antigen A dan antibodi anti-B."],
+["Anafilaksis","Epinefrin IM di paha lateral dulu, baru obat lain (antihistamin, steroid hanya penunjang)."]]],
+["🚽 Urogenital","Guyton & Hall; Buku Ajar Ilmu Penyakit Dalam; Panduan Praktik Klinis FKTP",[
+["Nefron","Tiga proses: filtrasi di glomerulus, reabsorpsi, sekresi. LFG normal sekitar 90-120 mL/menit. PGK: LFG <60 selama >3 bulan atau ada kerusakan ginjal."],
+["Nefritik vs nefrotik","Nefritik: hematuria, hipertensi, edema ringan (contoh GNAPS pasca faringitis). Nefrotik: proteinuria >3,5 g/hari, hipoalbumin, edema berat, kolesterol tinggi."],
+["ISK","Sistitis: disuria, sering BAK, nyeri suprapubik. Pielonefritis: demam, nyeri pinggang. Wanita lebih sering karena uretra pendek. Kuman tersering: E. coli."],
+["Batu saluran kemih","Kolik hebat dari pinggang ke selangkangan, sering ada hematuria. Minum banyak dan analgesik."],
+["BPH","Pria tua dengan pancaran lemah, nokturia. Pada colok dubur prostat membesar, licin, kenyal."]]],
+["🦴 Kulit & muskuloskeletal","Fitzpatrick Dermatology; Apley Orthopaedics; PERDOSKI; Panduan Praktik Klinis FKTP",[
+["Lesi primer kulit","Makula (datar), papul (<1 cm menonjol), plak, vesikel (<1 cm berisi cairan), bula (>1 cm), pustul, nodul."],
+["Infeksi kulit","Impetigo: krusta kuning seperti madu. Tinea: cincin dengan tepi aktif. Skabies: gatal malam, sela jari, permetrin 5%. Kusta: bercak mati rasa."],
+["Fraktur","Tanda pasti: deformitas, krepitasi, gerak abnormal. Foto rontgen 2 posisi, mencakup 2 sendi. Fraktur terbuka: antibiotik, debridemen, stabilisasi."],
+["Radang sendi","OA: nyeri bertambah dengan aktivitas, kaku pagi <30 menit. RA: simetris, kaku pagi >1 jam. Gout: nyeri mendadak di MTP I (podagra), asam urat tinggi."]]],
+["🧠 Neurobehavior","Adams & Victor Principles of Neurology; PERDOSSI; PPDGJ-III/DSM-5",[
+["UMN vs LMN","UMN: spastik, refleks naik, Babinski positif. LMN: flaksid, refleks turun, atrofi, fasikulasi."],
+["GCS","Mata 4 + Verbal 5 + Motor 6 = 3-15. ≤8 berarti cedera berat dan perlu proteksi jalan napas."],
+["Stroke","Sekitar 85% iskemik. Kenali dengan BE-FAST (wajah mencong, lengan lemah, bicara pelo, waktu). Iskemik <4,5 jam bisa ditrombolisis setelah CT menyingkirkan perdarahan."],
+["Sakit kepala","Migrain: sebelah, berdenyut, mual, fotofobia. Tension: seperti diikat, kedua sisi. Red flag: sakit kepala sangat hebat mendadak, demam + kaku kuduk, defisit neurologis."],
+["Kejang demam sederhana","Usia 6 bulan-5 tahun, demam, kejang umum, <15 menit, tidak berulang dalam 24 jam. Kejang aktif: diazepam rektal."],
+["Gangguan jiwa","Depresi: sedih atau anhedonia ≥2 minggu (SSRI). Psikosis: halusinasi, waham. Skizofrenia bila gejala psikotik >1 bulan."]]],
+["🩺 Keterampilan klinis dasar","Buku Panduan Keterampilan Klinis FKUI; Bates Guide to Physical Examination; WHO Hand Hygiene; AHA/ERC BLS",[
+["Anamnesis","Urutan: identitas, keluhan utama, riwayat penyakit sekarang, dahulu, keluarga, sosial. Untuk nyeri pakai OPQRST: Onset, Provocation, Quality, Radiation, Severity, Time."],
+["Tanda vital dewasa","Nadi 60-100, napas 12-20, suhu sekitar 36,5-37,5 °C, SpO2 ≥95%, TD optimal <120/80."],
+["Urutan pemeriksaan","Umumnya inspeksi, palpasi, perkusi, auskultasi (IPPA). Khusus abdomen: inspeksi, auskultasi, perkusi, palpasi, supaya bising usus tidak berubah oleh palpasi."],
+["5 momen cuci tangan WHO","Sebelum menyentuh pasien, sebelum tindakan aseptik, setelah terpapar cairan tubuh, setelah menyentuh pasien, setelah menyentuh lingkungan pasien."],
+["BLS dewasa","Cek respons dan napas, panggil bantuan, kompresi dada 100-120/menit, kedalaman 5-6 cm, rasio 30:2, pakai AED secepatnya."],
+["ATLS primary survey","A (jalan napas + proteksi servikal), B (napas), C (sirkulasi, hentikan perdarahan), D (disabilitas/GCS), E (paparan dan cegah hipotermia)."]]],
+["⚖️ Etika, komunikasi, layanan primer, informasi, mawas diri","KODEKI; SKDI; Kemenkes (imunisasi, ANC); Calgary-Cambridge; Sackett EBM",[
+["4 prinsip etika","Autonomi (hak memutuskan), beneficence (berbuat baik), nonmaleficence (jangan membahayakan), justice (adil). Informed consent dan rahasia medis bagian dari autonomi dan kepercayaan."],
+["Komunikasi efektif","SPIKES untuk berita buruk (Setting, Perception, Invitation, Knowledge, Emotion, Summary). Dengarkan dulu, hindari istilah rumit, pakai teach-back untuk memastikan pasien paham."],
+["Layanan primer","Puskesmas adalah FKTP. Dokter berperan promotif, preventif, kuratif, rehabilitatif. Kompetensi 4A SKDI: dokter umum harus mampu menangani tuntas. Rujuk bila di luar kompetensi atau sarana."],
+["Imunisasi dasar","Hepatitis B <24 jam setelah lahir, BCG, polio, DPT-HB-Hib, campak/rubela."],
+["Pengelolaan informasi (EBM)","Hierarki bukti: meta-analisis/SR > RCT > kohort > kasus-kontrol > laporan kasus. Sensitivitas = kemampuan menjaring yang sakit; spesifisitas = kemampuan menyingkirkan yang sehat."],
+["Mawas diri","Kenali batas kemampuan, minta bantuan atau supervisi, refleksikan kesalahan, jaga kesehatan mental sendiri, dan terus belajar."]]]];
+$("m").innerHTML='<input id="se" placeholder="Cari materi (mis. DBD, EKG, GCS)"><div id="ml"></div>';
+function rm(q){q=(q||"").toLowerCase();$("ml").innerHTML=M.map(([t,s,l])=>{const k=l.filter(x=>!q||(t+x[0]+x[1]).toLowerCase().includes(q));return k.length?`<details ${q?"open":""}><summary>${t}</summary><p class="mu">Sumber rujukan: ${s}</p>${k.map(x=>`<p><b>${x[0]}.</b> ${x[1]}</p>`).join("")}</details>`:""}).join("")}
+rm();$("se").oninput=e=>rm(e.target.value);
+const X=[
+[1,["Cara kerja jantung (versi simpel)","Jantung adalah pompa otot dengan 4 ruang yang mendorong darah ke seluruh tubuh.",["Bayangkan sebuah rumah dengan 4 kamar. Dua kamar atas disebut atrium (kanan dan kiri), fungsinya seperti ruang tunggu. Dua kamar bawah disebut ventrikel (kanan dan kiri), fungsinya mesin pompa.","Jalur darah: darah yang miskin oksigen masuk ke atrium kanan, turun ke ventrikel kanan, lalu dipompa ke paru untuk mengambil oksigen. Darah kaya oksigen kembali ke atrium kiri, turun ke ventrikel kiri, lalu dipompa ke seluruh tubuh.","Dinding ventrikel kiri paling tebal karena tugasnya paling berat: mendorong darah sampai ujung jari kaki. Katup bekerja seperti pintu satu arah supaya darah tidak balik."],"Kanan ke paru, kiri ke seluruh tubuh."]],
+[1,["Kenapa tekanan darah bisa tinggi?","Tekanan darah tinggi terjadi ketika darah mendorong dinding pembuluh terlalu kuat dalam waktu lama.",["Bayangkan selang air. Tekanan naik kalau pompanya kuat, airnya banyak, atau selangnya menyempit. Pada tubuh: jantung memompa kuat, garam berlebih menahan air sehingga volume darah naik, dan pembuluh yang kaku atau menyempit.","Hipertensi sering tanpa gejala, makanya dijuluki silent killer. Dalam jangka panjang merusak jantung, otak (stroke), ginjal, dan mata.","Pencegahan: kurangi garam, olahraga teratur, jaga berat badan, tidak merokok. Kalau perlu, minum obat teratur sesuai anjuran dokter."],"Diagnosis hipertensi: TD ≥140/90 pada pengukuran berulang."]],
+[2,["Perjalanan udara sampai ke darah","Udara melewati saluran napas lalu bertukar gas di alveolus.",["Urutannya: hidung → faring → laring → trakea → bronkus → bronkiolus → alveolus.","Alveolus seperti balon mungil yang dilapisi pembuluh kapiler. Oksigen berpindah dari alveolus ke darah, karbon dioksida berpindah dari darah ke alveolus untuk dihembuskan. Perpindahan ini lewat difusi (dari konsentrasi tinggi ke rendah).","Kalau alveolus terisi cairan atau nanah (pneumonia) atau salurannya menyempit (asma), pertukaran gas terganggu sehingga pasien sesak."],"Pertukaran gas terjadi di alveolus, bukan di trakea atau bronkus."]],
+[3,["Hepar, pabrik serbaguna tubuh","Hepar (hati) bekerja sebagai filter, gudang, dan pabrik sekaligus.",["Tugasnya: menyaring racun dan obat, menyimpan gula sebagai glikogen, membuat empedu untuk mencerna lemak, serta membuat protein seperti albumin dan faktor pembekuan darah.","Kalau hepar rusak: kulit dan mata kuning (bilirubin menumpuk), perut membesar karena cairan (asites), kaki bengkak (albumin turun), dan mudah memar atau berdarah (faktor pembekuan turun)."],"Hepar rusak → kuning, bengkak, mudah berdarah."]],
+[4,["Gula darah: kisah kunci dan gembok","Insulin adalah kunci yang membuka pintu sel supaya glukosa bisa masuk.",["Glukosa itu bahan bakar, sel itu rumah. Tanpa kunci (insulin), glukosa menumpuk di darah.","DM tipe 1: tubuh tidak membuat kunci (insulin hampir tidak ada). DM tipe 2: kunci ada, tetapi gemboknya berkarat (resisten insulin), sering terkait obesitas dan kurang gerak.","Gejala klasik 3P: poliuria (sering BAK), polidipsia (sering haus), polifagia (sering lapar), disertai berat badan turun."],"Gula tinggi di darah tetapi sel kelaparan."]],
+[7,["Kenapa hematokrit naik pada DBD?","Pada DBD pembuluh darah menjadi bocor, plasma keluar, darah jadi lebih kental.",["Virus dengue dibawa nyamuk Aedes aegypti yang menggigit siang hari. Pencegahan: 3M plus (menguras, menutup, mengubur) dan menghindari gigitan.","Saat fase kritis, plasma bocor dari pembuluh ke ruang antar sel. Jumlah sel darah relatif lebih banyak dibanding cairan, sehingga hematokrit naik. Bocor banyak bisa membuat tekanan turun dan terjadi syok.","Pengobatannya mengganti cairan dengan tepat dan memantau hematokrit serta trombosit."],"Hematokrit naik + trombosit turun = waspada DBD."]],
+[0,["Sistem imun seperti tentara negara","Tubuh punya lapis pertahanan: tembok, pasukan cepat, lalu pasukan khusus.",["Kulit dan selaput lendir = tembok benteng. Neutrofil = pasukan cepat yang datang pertama. Makrofag = tentara pemakan kuman. Sel T = komandan dan pembunuh sel terinfeksi. Sel B = pabrik peluru (antibodi).","Vaksin = latihan perang: tubuh dikenalkan pada versi lemah atau potongan kuman supaya sel memori siap kalau musuh asli datang."],"Vaksin melatih sel memori."]],
+[8,["Ginjal, penyaring dan pengatur","Ginjal menyaring darah sekitar 180 liter per hari, tetapi urin yang keluar hanya 1-2 liter.",["Fungsi: membuang limbah (urea, kreatinin), mengatur air, garam dan keasaman, mengatur tekanan darah (hormon renin), membuat eritropoietin (merangsang sel darah merah), dan mengaktifkan vitamin D.","Kalau ginjal gagal: limbah menumpuk, edema, tekanan darah tinggi, anemia, dan tulang rapuh."],"Ginjal rusak → anemia dan hipertensi ikut muncul."]],
+[6,["Kehamilan: dari sel telur ke bayi","Pembuahan terjadi di tuba, lalu embrio menempel di rahim sekitar hari ke-6 sampai 7.",["Plasenta tumbuh dan memberi makanan serta oksigen ke janin. Hormon hCG dihasilkan setelah implantasi, itulah yang dideteksi tes kehamilan.","Asam folat sebelum dan awal hamil mencegah cacat tabung saraf.","Tanda bahaya ibu hamil: perdarahan, kejang, sakit kepala hebat dengan pandangan kabur, ketuban pecah dini, gerak janin berkurang. Segera ke fasilitas kesehatan."],"Perdarahan pada kehamilan = tanda bahaya."]],
+[10,["Neuron dan peta otak","Neuron adalah sel saraf yang mengirim sinyal listrik.",["Dendrit menerima sinyal, badan sel memproses, akson menghantar, sinaps adalah sambungan antar neuron yang memakai zat kimia (neurotransmiter).","Peta lobus: frontal (gerak, keputusan, bicara), parietal (rasa raba), temporal (pendengaran, memori), oksipital (penglihatan).","Karena itu gejala stroke tergantung lokasi: area gerak terkena → lumpuh, area bicara terkena → afasia."],"Lokasi lesi menentukan gejala."]],
+[11,["Mengukur tekanan darah yang benar","Teknik yang salah bisa membuat angka meleset.",["Pasien duduk tenang 5 menit, punggung bersandar, kaki tidak menyilang, lengan setinggi jantung, manset sesuai ukuran lengan, tidak berbicara.","Pompa manset sampai di atas perkiraan sistolik, turunkan pelan. Bunyi Korotkoff pertama = sistolik, bunyi menghilang = diastolik. Ulangi 1-2 menit kemudian."],"Lengan harus setinggi jantung."]],
+[12,["Informed consent langkah demi langkah","Informed consent adalah persetujuan pasien setelah mendapat penjelasan yang cukup.",["Dokter menjelaskan diagnosis, tindakan, manfaat, risiko, dan alternatif dengan bahasa mudah. Pasien harus kompeten, paham, dan menyetujui tanpa paksaan.","Pasien boleh menolak. Pada keadaan gawat darurat yang mengancam nyawa dan tidak ada yang bisa dimintai persetujuan, dokter dapat bertindak demi menyelamatkan pasien."],"Setuju harus sukarela dan paham."]]];
+X.forEach(([f,it])=>M[f][2].unshift(it));
+const fe=t=>t.split(" ")[0],fn=t=>t.split(" ").slice(1).join(" "),ST=["💡","🔬","🧩","🎯","📌","🌈","🍀","🔎","🧠","✨"];
+let V={f:null,t:null,q:""};
+function go(f,t){V.f=f;V.t=t===undefined?null:t;rv();window.scrollTo(0,0)}
+function hv(){const q=V.q.toLowerCase(),h=$("hv");if(!q){h.innerHTML='<div class="g">'+M.map((m,i)=>`<div class="fc" onclick="go(${i})"><div class="st">${fe(m[0])}</div><b>${fn(m[0])}</b><div class="mu">${m[2].length} materi</div></div>`).join("")+'</div>';return}
+let r="";M.forEach((m,i)=>m[2].forEach((x,j)=>{if((x[0]+x[1]+(x[2]||[]).join(" ")).toLowerCase().includes(q))r+=`<div class="tc" onclick="go(${i},${j})"><div class="st">${ST[j%10]}</div><div><b>${x[0]}</b><div class="mu">${fn(m[0])}</div></div></div>`}));h.innerHTML=r||"<p class='mu'>Tidak ada hasil 😕</p>"}
+function rv(){const h=$("m"),{f,t}=V;
+if(f===null){h.innerHTML=`<p class="mu">📂 Pilih folder dulu, lalu pilih materinya.</p><input id="se" placeholder="🔍 Cari materi (mis. DBD, GCS)" value="${V.q}"><div id="hv"></div>`;hv();$("se").oninput=e=>{V.q=e.target.value;hv()};return}
+const m=M[f],L=m[2];
+if(t===null){h.innerHTML=`<button onclick="go(null)">← Semua folder</button><div class="pg" style="text-align:center"><div class="st" style="font-size:3rem">${fe(m[0])}</div><h2>${fn(m[0])}</h2><p class="mu">Rujukan: ${m[1]}</p></div>`+L.map((x,j)=>`<div class="tc" onclick="go(${f},${j})"><div class="st">${ST[j%10]}</div><div><b>${x[0]}</b>${x[2]?' <span class="mu">⭐ lengkap</span>':""}</div></div>`).join("");return}
+const x=L[t];
+h.innerHTML=`<button onclick="go(${f})">← ${fn(m[0])}</button><div class="pg"><div class="st" style="font-size:3rem">${ST[t%10]}</div><h2>${x[0]}</h2><p><b>📖 Penjelasan simpel</b><br>${x[1]}</p>${x[2]?`<p><b>🔍 Lebih detail</b></p>${x[2].map(p=>`<p>${p}</p>`).join("")}`:""}${x[3]?`<div class="tip">📌 <b>Ingat ya!</b> ${x[3]}</div>`:""}</div><div class="bar">${t>0?`<button onclick="go(${f},${t-1})">← Sebelumnya</button>`:"<span></span>"}${t<L.length-1?`<button class="p" onclick="go(${f},${t+1})">Berikutnya →</button>`:"<span></span>"}</div>`}
+rv();
+const T={Mint:["#eaf7f1","#fbfffd","#1f3a33","#5a7a70","#2f8a72","#cfe8dc"],Pink:["#fdeef3","#fffafc","#4a2a36","#8a6573","#c25580","#f3d3df"],Lavender:["#f0ecfb","#fcfbff","#33294f","#75698f","#7458bd","#dcd4f2"],Peach:["#fff1e6","#fffaf5","#4d3223","#8c7260","#c56a35","#f5dcc8"],Langit:["#e9f3fc","#fafdff","#1f3550","#587391","#2f74b3","#cfe2f3"],Gelap:["#12171d","#1b232c","#e8edf2","#9aa8b6","#3fc1ad","#2d3844"]};
+let fz=16;
+function ap(n){const r=document.documentElement.style,v=["--bg","--card","--tx","--mu","--ac","--bd"];v.forEach((k,j)=>n&&T[n]?r.setProperty(k,T[n][j]):r.removeProperty(k));document.body.style.fontSize=fz+"px";try{localStorage.setItem("pref",JSON.stringify({n,fz}))}catch(e){}}
+try{const p=JSON.parse(localStorage.getItem("pref")||"{}");if(p.fz)fz=p.fz;if(p.n)$("th").value=p.n;ap(p.n||"")}catch(e){}
+$("th").onchange=()=>ap($("th").value);$("fa").onclick=()=>{fz=Math.max(13,fz-1);ap($("th").value)};$("fb").onclick=()=>{fz=Math.min(24,fz+1);ap($("th").value)};
+const sy=[...new Set(Q.map(x=>x.s))];
+$("f").innerHTML=`<option value="">Semua (${Q.length} soal)</option>`+sy.map(s=>`<option>${s}</option>`).join("");
+const sh=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+let L,i,sc;
+function tab(m){$("m").classList.toggle("hide",!m);$("q").classList.toggle("hide",m);$("tm").classList.toggle("on",m);$("tq").classList.toggle("on",!m)}
+$("tm").onclick=()=>tab(true);$("tq").onclick=()=>tab(false);
+$("go").onclick=()=>{const f=$("f").value;L=sh(Q.filter(x=>!f||x.s==f));i=0;sc=0;show()};
+function show(){
+if(i>=L.length){$("box").innerHTML=`<div class="c"><h3>Selesai</h3>Skor: ${sc}/${L.length} (${Math.round(100*sc/L.length)}%)</div>`;return}
+const x=L[i],o=sh(x.o.map((t,k)=>({t,k})));
+$("box").innerHTML=`<div class="c"><div class="mu">${i+1}/${L.length} · ${x.s}</div><p>${x.q}</p>${o.map((v,n)=>`<button class="o" data-k="${v.k}">${"ABCDE"[n]}. ${v.t}</button>`).join("")}<div id="ex" class="hide"></div></div>`;
+document.querySelectorAll(".o").forEach(b=>b.onclick=()=>{
+document.querySelectorAll(".o").forEach(c=>{c.disabled=true;if(c.dataset.k==0)c.classList.add("ok")});
+if(b.dataset.k==0)sc++;else b.classList.add("no");
+$("ex").classList.remove("hide");$("ex").innerHTML=`<p class="mu">${x.e}</p><button class="p" id="nx">Lanjut</button>`;
+$("nx").onclick=()=>{i++;show()}})}
+</script></body></html>
